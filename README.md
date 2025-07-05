@@ -17,10 +17,12 @@ The **Store Rating App** is a full-stack role-based system that allows users to 
 ## 📁 Folder Structure
 
 store-rating-app/
+<br/>
 ├── backend/
+<br/>
 ├── frontend/
+<br/>
 └── README.md
-
 
 ---
 
