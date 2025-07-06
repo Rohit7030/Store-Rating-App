@@ -4,7 +4,7 @@ import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   const location = useLocation();
-  const publicPaths = ["/","/login", "/register", "/forgot-password", "/verify-otp", "/reset-password"];
+  const publicPaths = ["/login", "/register", "/forgot-password", "/verify-otp", "/reset-password"];
   const showNavbar = !publicPaths.includes(location.pathname);
 
   return (

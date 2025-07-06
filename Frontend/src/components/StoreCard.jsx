@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import StoreImage from "../assets/StoreImage.jpg";
+import StarRating from "./StarRating";
 
 export default function StoreCard({ store, onRate }) {
   const [score, setScore] = useState(store.userRating || 0);
@@ -24,26 +25,6 @@ export default function StoreCard({ store, onRate }) {
     }
   };
 
-  //star function
-  function renderStars(score, clickable = false, onChange = () => {}) {
-    const s = Math.round(score) || 0;
-    return (
-      <div className="flex gap-1/2">
-        {[1, 2, 3, 4, 5].map((i) => (
-          <span
-            key={i}
-            onClick={() => clickable && onChange(i)}
-            className={`text-xl cursor-${clickable ? "pointer" : "default"} ${
-              i <= s ? "text-yellow-400" : "text-gray-300"
-            }`}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-    );
-  }
-
   return (
     <div className="border-2 rounded-lg p-4 bg-white shadow-md">
       <img
@@ -56,16 +37,18 @@ export default function StoreCard({ store, onRate }) {
       <p className="text-sm text-gray-600">{store.address}</p>
 
       <div className="flex text-sm">
-        <p className="mt-2">{store.avgRating || "0"}</p>
-        <p className="mt-1/2 ml-2 ">{renderStars(store.avgRating)}</p>
+        <p className="mt-2">Overall Rating ({store.avgRating || "0"})</p>
+        <div className="mt-1 ml-2">
+          <StarRating score={store.avgRating} />
+        </div>
       </div>
 
-      <div className="flex mt-1">
-        <p className="mb-1 mt-1 text-sm font-medium">Your Rating :</p>
-        <p className="ml-2 ">{renderStars(score, true, setScore)}</p>
+      <div className="flex mt-1 items-center gap-2">
+        <p className="text-sm font-medium">Your Rating :</p>
+        <StarRating score={score} clickable onChange={setScore} />
         <button
           onClick={handleRating}
-          className=" ml-5 mt-1 bg-blue-500 text-white text-sm px-2 py-1/2 rounded hover:bg-blue-600"
+          className="ml-2 bg-blue-500 text-white text-sm px-3 py-1 rounded hover:bg-blue-600"
         >
           {isRated ? "Update Rating" : "Submit Rating"}
         </button>
